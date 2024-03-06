@@ -1,4 +1,4 @@
-const Catalog = () => {
+const Catalog = ({ }) => {
     return (
         <section id="catalog-page">
       <h1>All Games</h1>
