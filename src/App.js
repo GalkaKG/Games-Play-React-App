@@ -22,10 +22,10 @@ function App() {
         comments.push(comment)
 
         return [
-            ...state.filter(x => x._id != gameId),
-            {...game, comments}
-        ]
-  })
+            ...state.filter(x => x._id !== gameId),
+            {...game, comments},
+        ];
+    })
   }
   
   useEffect(() => {

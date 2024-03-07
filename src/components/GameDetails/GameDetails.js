@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const GameDetails = ({ 
     games,
-    addComment 
+    addComment, 
 }) => {
     const { gameId } = useParams();
     const [comment, setComment] = useState({
@@ -13,12 +13,12 @@ const GameDetails = ({
 
     const game = games.find(x => x._id == gameId);
 
-    const addCommenthandler = (e) => {
+    const addCommentHandler = (e) => {
         e.preventDefault();
 
-        const result = `${comment.username}: ${comment.comment}`
+        const result = `${comment.username}: ${comment.comment}`;
         
-        addComment(gameId, result)
+        addComment(gameId, result);
     }
 
     const onChange = (e) => {
@@ -28,7 +28,7 @@ const GameDetails = ({
         }));
     }
 
-
+    console.log(game);
     return (
         <section id="game-details">
         <h1>{game.title}</h1>
@@ -46,16 +46,16 @@ const GameDetails = ({
           <div className="details-comments">
             <h2>Comments:</h2>
             <ul>
-              {/* list all comments for current game (If any) */}
-              <li className="comment">
-                <p>Content: I rate this one quite highly.</p>
-              </li>
-              <li className="comment">
-                <p>Content: The best game.</p>
-              </li>
+              {game.comments?.map(x => 
+                <li className="comment">
+                    <p>{x}</p>
+                </li>
+              )}
             </ul>
-            {/* Display paragraph: If there are no games in the database */}
-            <p className="no-comment">No comments.</p>
+            {!game.comments &&
+                 <p className="no-comment">No comments.</p>
+            }
+           
           </div>
           {/* Edit/Delete buttons ( Only for creator of this game )  */}
           <div className="buttons">
@@ -71,7 +71,7 @@ const GameDetails = ({
         {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
         <article className="create-comment">
           <label>Add new comment:</label>
-          <form className="form" onSubmit={addCommenthandler}>
+          <form className="form" onSubmit={addCommentHandler}>
             <input
               type="text" 
               name="username" 
