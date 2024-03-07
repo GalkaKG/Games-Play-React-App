@@ -1,5 +1,5 @@
 # Website
-<i> https://games-play-e26da.web.app/ </i>
+https://games-play-e26da.web.app/
 
 # Getting Started with Create React App
 
