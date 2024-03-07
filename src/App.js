@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState, lazy, Suspense } from "react";
 import uniqid from 'uniqid';
 import * as gameService from './services/gameService';
+import { AuthContext } from './context/AuthContext';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -17,7 +18,12 @@ const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
   const [games, setGames] = useState([]);
+  const [auth, setAuth] = useState({});
   const navigate = useNavigate();
+
+  const userLogin = (authData) => {
+    setAuth(authData);
+  }
 
   const addComment = (gameId, comment) => {
     setGames(state => {
@@ -54,6 +60,7 @@ function App() {
 }, []);
 
   return (
+    <AuthContext.Provider value={{auth, userLogin}}>
     <div id="box">
       <Header />
     {/* Main Content */}
@@ -111,7 +118,7 @@ function App() {
     {/* Catalogue */}
     
   </div>
-  
+  </AuthContext.Provider>
   );
 }
 

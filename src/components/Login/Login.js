@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import { login } from "../../services/authService";
 
 const Login = () => {
+    const { userLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -11,8 +17,12 @@ const Login = () => {
 
         login(email, password)
             .then(authData => {
-                console.log(authData);
+                userLogin(authData);
+                navigate('/');
             })
+            .catch(() => {
+                navigate('/404');
+            });
     };
 
 
