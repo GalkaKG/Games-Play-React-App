@@ -13,6 +13,20 @@ import './App.css';
 
 function App() {
   const [games, setGames] = useState([]);
+
+  const addComment = (gameId, comment) => {
+    setGames(state => {
+        const game = state.find(x => x._id == gameId);
+        
+        const comments = game.comments || [];
+        comments.push(comment)
+
+        return [
+            ...state.filter(x => x._id != gameId),
+            {...game, comments}
+        ]
+  })
+  }
   
   useEffect(() => {
     gameService.getAll()
@@ -21,8 +35,6 @@ function App() {
             setGames(result);
         })
 }, []);
-
-    console.log(games);
 
   return (
     <div id="box">
@@ -35,7 +47,7 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/create' element={<CreateGame />} />
             <Route path='/catalog' element={<Catalog games={games} />} />
-            <Route path='/catalog/:gameId' element={<GameDetails />} />
+            <Route path='/catalog/:gameId' element={<GameDetails games={games} addComment={addComment} />} />
         </Routes>
     </main>
 
