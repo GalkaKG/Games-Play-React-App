@@ -1,0 +1,8 @@
+npm i uniqid
+npm run build
+npm i -g serve
+serve -s build
+npm i -g firebase-tools
+firebase init
+firebase deploy
+npm run deploy
