@@ -1,8 +1,8 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState, lazy, Suspense } from "react";
-import uniqid from 'uniqid';
 import * as gameService from './services/gameService';
 import { AuthContext } from './context/AuthContext';
+import { GameContext } from './context/GameContext';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -12,18 +12,18 @@ import CreateGame from './components/CreateGame/CreateGame';
 import Catalog from './components/Catalog/Catalog';
 import GameDetails from './components/GameDetails/GameDetails'
 import './App.css';
-
+import useLocalStorage from './hooks/useLocalStorage';
 
 const Register = lazy(() => import('./components/Register/Register'));
 
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useLocalStorage('auth', {});
   const navigate = useNavigate();
 
   const userLogin = (authData) => {
-    setAuth(authData);
+       setAuth(authData);
   }
 
   const userLogout = () => {
@@ -47,10 +47,7 @@ function App() {
   const addGameHandler = (gameData) => {
     setGames(state => [
         ...state,
-        {
-            ...gameData,
-            _id: uniqid(),
-        },
+       gameData,
     ]);
 
     navigate('/catalog');

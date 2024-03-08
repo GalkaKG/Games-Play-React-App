@@ -1,12 +1,17 @@
+import * as gameService from '../../services/gameService';
+
 const CreateGame = ({ addGameHandler }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
         const gameData = Object.fromEntries(new FormData(e.target));
 
-        console.log(gameData);
+        gameService.create(gameData)
+            .then(result => {
+                addGameHandler(result);
+            });
 
-        addGameHandler(gameData);
+        
     }
 
     return (
