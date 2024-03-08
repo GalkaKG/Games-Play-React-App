@@ -26,6 +26,10 @@ function App() {
     setAuth(authData);
   }
 
+  const userLogout = () => {
+      setAuth({});
+  }
+
   const addComment = (gameId, comment) => {
     setGames(state => {
         const game = state.find(x => x._id == gameId);
@@ -61,7 +65,7 @@ function App() {
 }, []);
 
   return (
-    <AuthContext.Provider value={{user: auth, userLogin}}>
+    <AuthContext.Provider value={{user: auth, userLogin, userLogout}}>
     <div id="box">
       <Header />
     {/* Main Content */}

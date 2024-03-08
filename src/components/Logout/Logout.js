@@ -6,11 +6,12 @@ import * as authService from '../../services/authService';
 
 const Logout = () => {
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
+    const { user, userLogout} = useContext(AuthContext);
 
     useEffect(() => {
         authService.logout(user.accessToken)
             .then(() => {
+                userLogout();
                 navigate('/');
             })
             .catch(() => {

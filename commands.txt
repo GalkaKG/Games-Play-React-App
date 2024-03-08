@@ -5,4 +5,3 @@ serve -s build
 npm i -g firebase-tools
 firebase init
 firebase deploy
-npm run deploy
