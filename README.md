@@ -1,6 +1,9 @@
 # Website
 https://games-play-e26da.web.app/
 
+# How it looks
+<img src="https://github.com/GalkaKG/games-play-react-app/blob/main/public/images/games-play.png" />
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
