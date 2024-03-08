@@ -7,6 +7,7 @@ import { AuthContext } from './context/AuthContext';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import CreateGame from './components/CreateGame/CreateGame';
 import Catalog from './components/Catalog/Catalog';
 import GameDetails from './components/GameDetails/GameDetails'
@@ -60,7 +61,7 @@ function App() {
 }, []);
 
   return (
-    <AuthContext.Provider value={{auth, userLogin}}>
+    <AuthContext.Provider value={{user: auth, userLogin}}>
     <div id="box">
       <Header />
     {/* Main Content */}
@@ -73,6 +74,7 @@ function App() {
                     <Register />
                 </Suspense>
             } />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/create' element={<CreateGame addGameHandler={addGameHandler} />} />
             <Route path='/catalog' element={<Catalog games={games} />} />
             <Route path='/catalog/:gameId' element={<GameDetails games={games} addComment={addComment} />} />

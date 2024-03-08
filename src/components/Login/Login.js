@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { login } from "../../services/authService";
+import * as authService from "../../services/authService";
 
 const Login = () => {
     const { userLogin } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const Login = () => {
             password,
         } = Object.fromEntries(new FormData(e.target));
 
-        login(email, password)
+        authService.login(email, password)
             .then(authData => {
                 userLogin(authData);
                 navigate('/');
