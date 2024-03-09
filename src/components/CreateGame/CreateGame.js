@@ -13,9 +13,7 @@ const CreateGame = () => {
         gameService.create(gameData)
             .then(result => {
                 addGameHandler(result);
-            });
-
-        
+            });    
     }
 
     return (
