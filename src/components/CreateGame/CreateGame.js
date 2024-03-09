@@ -1,6 +1,10 @@
+import { useContext } from 'react';
+import { GameContext } from '../../context/GameContext';
 import * as gameService from '../../services/gameService';
 
-const CreateGame = ({ addGameHandler }) => {
+const CreateGame = () => {
+    const { addGameHandler } = useContext(GameContext)
+
     const onSubmit = (e) => {
         e.preventDefault();
 
