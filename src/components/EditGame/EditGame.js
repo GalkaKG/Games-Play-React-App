@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { GameContext } from "../../context/GameContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import * as gameService from '../../services/gameService'
 
 const EditGame = () => {
     const [currentGame, setCurrentGame] = useState({});
-    const {} = useContext(GameContext);
+    const { gameEdit } = useContext(GameContext);
     const {gameId} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         gameService.getOne(gameId)
@@ -22,7 +23,8 @@ const EditGame = () => {
 
         gameService.edit(gameId, gameData)
             .then(result => {
-                console.log(result);
+                gameEdit(gameId, result);
+                navigate(`/catalog/${gameId}`)
             });    
     }
 
