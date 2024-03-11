@@ -1,9 +1,8 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState, lazy, Suspense } from "react";
 import * as gameService from './services/gameService';
-import { AuthContext } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { GameContext } from './context/GameContext';
-
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -13,23 +12,13 @@ import EditGame from './components/EditGame/EditGame';
 import Catalog from './components/Catalog/Catalog';
 import GameDetails from './components/GameDetails/GameDetails'
 import './App.css';
-import useLocalStorage from './hooks/useLocalStorage';
 
 const Register = lazy(() => import('./components/Register/Register'));
 
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useLocalStorage('auth', {});
   const navigate = useNavigate();
-
-  const userLogin = (authData) => {
-       setAuth(authData);
-  }
-
-  const userLogout = () => {
-      setAuth({});
-  }
 
   const addComment = (gameId, comment) => {
     setGames(state => {
@@ -66,7 +55,7 @@ function App() {
 }, []);
 
   return (
-    <AuthContext.Provider value={{user: auth, userLogin, userLogout}}>
+    <AuthProvider>
     <div id="box">
       <Header />
     <GameContext.Provider value={{games, addGameHandler, gameEdit}}>
@@ -88,7 +77,7 @@ function App() {
       </main>
     </GameContext.Provider>
   </div>
-  </AuthContext.Provider>
+  </AuthProvider>
   );
 }
 
