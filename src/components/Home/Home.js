@@ -1,20 +1,9 @@
+import { useContext } from "react";
 import LatestGame from "./LatestGame/LatestGame";
+import { GameContext } from "../../context/GameContext";
 
-// import { useState, useEffect } from "react";
-// import * as gameService from '../../services/gameService';
-
-
-const Home = ({ games }) => {
-//   const [games, setGames] = useState([]);
-  
-//   useEffect(() => {
-//     gameService.getAll()
-//         .then(result => {
-//             console.log(result);
-//             setGames(result);
-//         })
-// }, []);
-    console.log(games);
+const Home = () => {
+    const { games } = useContext(GameContext);
 
     return (
         <section id="welcome-world">
