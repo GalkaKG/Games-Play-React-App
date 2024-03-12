@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
 import * as gameService from '../../services/gameService';
 import { GameContext } from '../../context/GameContext';
 
@@ -8,7 +7,7 @@ const GameDetails = ({
 }) => {
     const { addComment } = useContext(GameContext);
     const { gameId } = useParams();
-    const [currentGame, setCurrentGame] = useState;
+    const [currentGame, setCurrentGame] = useState({});
     const [comment, setComment] = useState({
         username: '',
         comment: '',
@@ -19,7 +18,7 @@ const GameDetails = ({
         .then(result => {
           setCurrentGame(result);
         })
-    });
+    }, []);
 
     const [error, setError] = useState({
         username: '',

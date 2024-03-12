@@ -4,26 +4,37 @@ import * as gameService from '../services/gameService';
 
 export const GameContext = createContext();
 
+const gameReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_GAMES':
+            return [...action.payload];
+        case 'ADD_GAME':
+            return [...state, action.payload];
+        case 'EDIT_GAME':
+            return state.map(x => x._id === action.gameId ? action.payload : x);
+        default:
+            return state;
+    }
+}
+
 
 export const GameProvider = ({
     children
 }) => {
-    const gameReducer = (state, value) => {
-        console.log('Old state: ', state);
-        console.log('New state: ', value);
-
-        return value;
-    }
-
     const navigate = useNavigate();
     // const [games, setGames] = useState([]);
-    const [games, dispatcher] = useReducer(gameReducer, []);
+    const [games, dispatch] = useReducer(gameReducer, []);
 
     useEffect(() => {
         gameService.getAll()
             .then(result => {
-                dispatcher(result);
-            })
+                const action = {
+                    type: 'ADD_GAMES',
+                    payload: result
+                };
+
+                dispatch(action);
+            });
     }, []);
 
     const addComment = (gameId, comment) => {
@@ -41,17 +52,22 @@ export const GameProvider = ({
       };
     
       const addGameHandler = (gameData) => {
-        // setGames(state => [
-        //     ...state,
-        //    gameData,
-        // ]);
+        dispatch({
+            type: 'ADD_GAME',
+            payload: gameData,
+        })
     
         navigate('/catalog');
       };
     
       const gameEdit = (gameId, gameData) => {
         // setGames(state => state.map(x => x._id === gameId ? gameData : x));
-      }
+        dispatch({
+            type: 'EDIT_GAME',
+            payload: gameData,
+            gameId,
+        })
+    }
 
     return (
         <GameContext.Provider value={{games, addGameHandler, gameEdit, addComment}}>
