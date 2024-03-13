@@ -13,10 +13,9 @@ const GameDetails = () => {
     useEffect(() => {
       (async () => {
         const gameDetails = await gameService.getOne(gameId);
-        console.log(gameDetails);
         const gameComments = await commentService.getByGameId(gameId);
       
-        fetchGameDetails(gameId, {...gameDetails, comments: gameComments});
+        fetchGameDetails(gameId, {...gameDetails, comments: gameComments.map(x =>`${x.user.email}: ${x.text}`) });
       })();
     }, []);
 
