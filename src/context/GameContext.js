@@ -23,6 +23,8 @@ const gameReducer = (state, action) => {
         case 'ADD_COMMENT':
             // return state.map(x => x._id === action.gameId ? {...x, comments: [...x.comments, action.payload]} : x);
             return state.map(x => x._id === action.gameId ? {...x, comments: [...(x.comments || []), action.payload]} : x);
+        case 'REMOVE_GAME':
+            return state.filter(x => x._id !== action.gameId);
         default:
             return state;
     }
@@ -95,11 +97,18 @@ export const GameProvider = ({
             type: 'EDIT_GAME',
             payload: gameData,
             gameId,
+        });
+    };
+
+    const gameRemove = (gameId) => {
+        dispatch({
+            type: 'REMOVE_GAME',
+            gameId
         })
     }
 
     return (
-        <GameContext.Provider value={{games, addGameHandler, gameEdit, addComment, fetchGameDetails, selectGame}}>
+        <GameContext.Provider value={{games, addGameHandler, gameEdit, addComment, fetchGameDetails, selectGame, gameRemove}}>
             {children}
         </GameContext.Provider>
     );
