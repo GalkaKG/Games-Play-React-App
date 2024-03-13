@@ -49,7 +49,7 @@ export const GameProvider = ({
     }, []);
 
     const selectGame = (gameId) => {
-        return games.find(x => x._id === gameId);
+        return games.find(x => x._id === gameId) || {};
     }
 
     const fetchGameDetails = (gameId, gameData) => {

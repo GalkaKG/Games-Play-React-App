@@ -7,14 +7,17 @@ import * as commentService from '../../services/commentService';
 const GameDetails = () => {
     const { addComment, fetchGameDetails, selectGame } = useContext(GameContext);
     const { gameId } = useParams();
-
+    // console.log(gameId);
     const currentGame = selectGame(gameId);
 
     useEffect(() => {
-      gameService.getOne(gameId)
-        .then(result => {
-            fetchGameDetails(gameId, result)
-        })
+      (async () => {
+        const gameDetails = await gameService.getOne(gameId);
+        console.log(gameDetails);
+        const gameComments = await commentService.getByGameId(gameId);
+      
+        fetchGameDetails(gameId, {...gameDetails, comments: gameComments});
+      })();
     }, []);
 
     const addCommentHandler = (e) => {
