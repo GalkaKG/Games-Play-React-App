@@ -16,11 +16,15 @@ export const AuthProvider = ({
        setAuth({});
    };
  
-
     return (
-        <AuthContext.Provider value={{user: auth, userLogin, userLogout}}>
+        <AuthContext.Provider value={{
+            user: auth, 
+            userLogin, 
+            userLogout,
+            isAuthenticated: !!auth.accessToken // !! this makes it boolean
+        }}>
             {children}
-        </ AuthContext.Provider>
+        </AuthContext.Provider>
     );
 }
 
