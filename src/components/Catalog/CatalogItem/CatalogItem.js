@@ -10,9 +10,9 @@ const CatalogItem = ({ game }) => {
           <Link to={`/catalog/${game._id}`} className="details-button">
             Details
           </Link>
-          <Link style={{marginLeft: '130px'}} to={`/games/${game._id}/edit`} className="details-button">
+          {/* <Link style={{marginLeft: '130px'}} to={`/games/${game._id}/edit`} className="details-button">
             Edit
-          </Link>
+          </Link> */}
         </div>
       </div>
     );
